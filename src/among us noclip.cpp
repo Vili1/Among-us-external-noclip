@@ -86,52 +86,100 @@ int main()
     std::cout << "------------------------------------------------------" << std::endl;
 
     //"UI"
-    std::cout << "Y- UP " << std::endl;
-    std::cout << "H- DOWN" << std::endl;
-    std::cout << "G- LEFT" << std::endl;
-    std::cout << "J- RIGHT" << std::endl;
-    std::cout << "T- Reloads the cheat" << std::endl;
+    std::cout << "W, UP ARROW - UP " << std::endl;
+    std::cout << "S, DOWN ARROW - DOWN" << std::endl;
+    std::cout << "A, LEFT ARROW - LEFT" << std::endl;
+    std::cout << "D, RIGHT ARROW - RIGHT" << std::endl;
+    std::cout << "T - Reloads the cheat" << std::endl;
+    std::cout << "Y - Set speed, the default speed is 0.5" << std::endl;
     std::cout << "------------------------------------------------------" << std::endl;
     float xValue = 0;
     float yValue = 0;
-    
+    float speed= 0.5;
+
     while (true)
     {
         Sleep(30);
 
-        if (GetAsyncKeyState(0x47)) // G left
+        // a,d,w,s keys
+        if (GetAsyncKeyState(0x41)) // A left
         {
             ReadProcessMemory(processHandle, (LPCVOID)(pointsAddress), &xValue, sizeof (float), NULL);
             std::cout << "Current X value: " << std::hex << xValue << std::endl;
-            xValue -=0.5;
+            xValue -=speed;
            
             WriteProcessMemory(processHandle, (LPVOID)(pointsAddress), &xValue, sizeof(float), 0);
         }
-        if (GetAsyncKeyState(0x4A)) // J right 
+        if (GetAsyncKeyState(0x44)) // D right 
         { 
            
             ReadProcessMemory(processHandle, (LPCVOID)(pointsAddress), &xValue, sizeof (float), NULL);
             std::cout << "Current X value: " << std::hex << xValue << std::endl;
-            xValue +=0.5;
+            xValue +=speed;
            
             WriteProcessMemory(processHandle, (LPVOID)(pointsAddress), &xValue, sizeof(float), 0);
         }
-        if (GetAsyncKeyState(0x59)) // Y up
+        if (GetAsyncKeyState(0x57)) // W up
         {
             ReadProcessMemory(processHandle, (LPCVOID)(pointsAddress2), &yValue, sizeof (float), NULL);
             std::cout << "Current Y value: " << std::hex << yValue << std::endl;
-            yValue +=0.5;
+            yValue +=speed;
            
             WriteProcessMemory(processHandle, (LPVOID)(pointsAddress2), &yValue, sizeof(float), 0);
         }
-        if (GetAsyncKeyState(0x48)) // H down
+        if (GetAsyncKeyState(0x53)) // H down
         {
             ReadProcessMemory(processHandle, (LPCVOID)(pointsAddress2), &yValue, sizeof (float), NULL);
             std::cout << "Current Y value: " << std::hex << yValue << std::endl;
-            yValue -=0.5;
+            yValue -=speed;
            
             WriteProcessMemory(processHandle, (LPVOID)(pointsAddress2), &yValue, sizeof(float), 0);
         }
+        // a,d,w,s keys end
+
+        // arrow keys
+        if (GetAsyncKeyState(VK_LEFT)) // LEFT ARROW
+        {
+            ReadProcessMemory(processHandle, (LPCVOID)(pointsAddress), &xValue, sizeof (float), NULL);
+            std::cout << "Current X value: " << std::hex << xValue << std::endl;
+            xValue -=speed;
+           
+            WriteProcessMemory(processHandle, (LPVOID)(pointsAddress), &xValue, sizeof(float), 0);
+        }
+        if (GetAsyncKeyState(VK_RIGHT)) // RIGHT ARROW
+        { 
+           
+            ReadProcessMemory(processHandle, (LPCVOID)(pointsAddress), &xValue, sizeof (float), NULL);
+            std::cout << "Current X value: " << std::hex << xValue << std::endl;
+            xValue +=speed;
+           
+            WriteProcessMemory(processHandle, (LPVOID)(pointsAddress), &xValue, sizeof(float), 0);
+        }
+        if (GetAsyncKeyState(VK_UP)) // UP ARROW
+        {
+            ReadProcessMemory(processHandle, (LPCVOID)(pointsAddress2), &yValue, sizeof (float), NULL);
+            std::cout << "Current Y value: " << std::hex << yValue << std::endl;
+            yValue +=speed;
+           
+            WriteProcessMemory(processHandle, (LPVOID)(pointsAddress2), &yValue, sizeof(float), 0);
+        }
+        if (GetAsyncKeyState(VK_DOWN)) // DOWN ARROW
+        {
+            ReadProcessMemory(processHandle, (LPCVOID)(pointsAddress2), &yValue, sizeof (float), NULL);
+            std::cout << "Current Y value: " << std::hex << yValue << std::endl;
+            yValue -=speed;
+           
+            WriteProcessMemory(processHandle, (LPVOID)(pointsAddress2), &yValue, sizeof(float), 0);
+        }
+        // arrow keys end
+
+
+        if (GetAsyncKeyState(0x59)) // Y set speed 
+        {
+            std::cout << "Set speed:" << std::endl;
+            std::cin >> speed;
+        }
+
         if (GetAsyncKeyState(0x54)) // T reload
         {
             goto reload;
