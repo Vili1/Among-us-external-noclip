@@ -36,12 +36,25 @@ int main()
     HWND hGameWindow = FindWindow(NULL, "Among Us");
     if (hGameWindow != NULL)
     {
-        std::cout << "Window found successfully!" << std::endl;
+        std::cout << "Among Us found successfully!" << std::endl;
         std::cout << "------------------------------------------------------" << std::endl;
     }
     else
     {
-        std::cout << "Unable to find the window!" << std::endl;
+        std::cout << "Unable to find Among Us, Please open Among Us!" << std::endl;
+        std::cout << "------------------------------------------------------" << std::endl;
+        Sleep(1000);
+        std::cout << "Auto reloading in 5 seconds!" << std::endl;
+        Sleep(1000);
+        std::cout << "Auto reloading in 4 seconds!" << std::endl;
+        Sleep(1000);
+        std::cout << "Auto reloading in 3 seconds!" << std::endl;
+        Sleep(1000);
+        std::cout << "Auto reloading in 2 seconds!" << std::endl;
+        Sleep(1000);
+        std::cout << "Auto reloading in 1 seconds!" << std::endl;
+        
+        goto reload;
     }
     DWORD pID;
     GetWindowThreadProcessId(hGameWindow, &pID);
@@ -61,16 +74,16 @@ int main()
     DWORD baseAddress;
 
     ReadProcessMemory(processHandle, (LPVOID)(gameBaseAddress + offsetGameToBaseAddress), &baseAddress, sizeof(baseAddress), NULL);
-    std::cout << "Debugginfo: Baseaddress = " << std::hex << baseAddress << std::endl;
+    //std::cout << "Debugginfo: Baseaddress = " << std::hex << baseAddress << std::endl;
     DWORD pointsAddress = baseAddress;
     for (int i = 0; i < pointsOffsets.size() - 1; i++)
     {
         ReadProcessMemory(processHandle, (LPVOID)(pointsAddress + pointsOffsets.at(i)), &pointsAddress, sizeof(pointsAddress), NULL);
-        std::cout << "Debugginfo: address at offset = " << std::hex << pointsAddress << std::endl;
+        //std::cout << "Debugginfo: address at offset = " << std::hex << pointsAddress << std::endl;
     }
     pointsAddress += pointsOffsets.at(pointsOffsets.size() - 1);
-    std::cout << "Debugginfo: address at final offset = " << std::hex << pointsAddress << std::endl;
-    std::cout << "------------------------------------------------------" << std::endl;
+   //std::cout << "Debugginfo: address at final offset = " << std::hex << pointsAddress << std::endl;
+   //std::cout << "------------------------------------------------------" << std::endl;
 
 
     //second offsets Y
@@ -79,11 +92,11 @@ int main()
     for (int i = 0; i < pointsOffsets2.size() - 1; i++)
     {
         ReadProcessMemory(processHandle, (LPVOID)(pointsAddress2 + pointsOffsets2.at(i)), &pointsAddress2, sizeof(pointsAddress2), NULL);
-        std::cout << "Debugginfo: address at offset = " << std::hex << pointsAddress2 << std::endl;
+        //std::cout << "Debugginfo: address at offset = " << std::hex << pointsAddress2 << std::endl;
     }
     pointsAddress2 += pointsOffsets2.at(pointsOffsets2.size() - 1);
-    std::cout << "Debugginfo: address at final offset2 = " << std::hex << pointsAddress2 << std::endl;
-    std::cout << "------------------------------------------------------" << std::endl;
+    //std::cout << "Debugginfo: address at final offset2 = " << std::hex << pointsAddress2 << std::endl;
+    //std::cout << "------------------------------------------------------" << std::endl;
 
     //"UI"
     std::cout << "W, UP ARROW - UP " << std::endl;
