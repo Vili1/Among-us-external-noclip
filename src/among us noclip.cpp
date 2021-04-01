@@ -69,8 +69,8 @@ int main()
 
     char moduleName[] = "GameAssembly.dll";
     DWORD gameBaseAddress = dwGetModuleBaseAddress(_T(moduleName), pID);
-    DWORD offsetGameToBaseAddress = 0x02C6C310;
-    std::vector<DWORD> pointsOffsets{0x5C, 0x0, 0x60, 0x2C, 0x8, 0x5C, 0x2C};
+    DWORD offsetGameToBaseAddress = 0x028AA130;
+    std::vector<DWORD> pointsOffsets{0x5C, 0x0, 0x60, 0x30, 0x8, 0x5C, 0x2C};
     DWORD baseAddress;
 
     ReadProcessMemory(processHandle, (LPVOID)(gameBaseAddress + offsetGameToBaseAddress), &baseAddress, sizeof(baseAddress), NULL);
@@ -88,7 +88,7 @@ int main()
 
     //second offsets Y
     DWORD pointsAddress2 = baseAddress;
-    std::vector<DWORD> pointsOffsets2{0x5C, 0x0, 0x60, 0x2C, 0x8, 0x5C, 0x30};
+    std::vector<DWORD> pointsOffsets2{0x5C, 0x0, 0x60, 0x30, 0x8, 0x5C, 0x30};
     for (int i = 0; i < pointsOffsets2.size() - 1; i++)
     {
         ReadProcessMemory(processHandle, (LPVOID)(pointsAddress2 + pointsOffsets2.at(i)), &pointsAddress2, sizeof(pointsAddress2), NULL);
