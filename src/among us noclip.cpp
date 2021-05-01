@@ -3,7 +3,7 @@
 #include <iostream>
 #include <tchar.h> 
 #include <vector>
-
+#include <thread>
 
 DWORD dwGetModuleBaseAddress(TCHAR* lpszModuleName, DWORD pID)
 {
@@ -69,7 +69,7 @@ int main()
 
     char moduleName[] = "GameAssembly.dll";
     DWORD gameBaseAddress = dwGetModuleBaseAddress(_T(moduleName), pID);
-    DWORD offsetGameToBaseAddress = 0x028AA130;
+    DWORD offsetGameToBaseAddress = 0x028EDF98;
     std::vector<DWORD> pointsOffsets{0x5C, 0x0, 0x60, 0x30, 0x8, 0x5C, 0x2C};
     DWORD baseAddress;
 
