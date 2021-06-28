@@ -1,5 +1,8 @@
 # Among-us-external-noclip
 Among us external noclip written in c++
+
+- [Donate on paypal](https://www.paypal.com/donate?hosted_button_id=PTRYHABP7FHGN)
+- [Support me on patreon :v](https://www.patreon.com/Vili69)
 ### Build flags for gcc
 ```bash 
 -O2 -s -static-libstdc++ -static-libgcc
